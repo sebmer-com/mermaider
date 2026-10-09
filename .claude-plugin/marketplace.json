@@ -1,0 +1,11 @@
+{
+  "name": "mermaider-local",
+  "owner": { "name": "sebmer-com", "url": "https://github.com/sebmer-com" },
+  "plugins": [
+    {
+      "name": "mermaider",
+      "source": "./",
+      "description": "Source-grounded diagrams with deterministic HTML and Mermaid output."
+    }
+  ]
+}

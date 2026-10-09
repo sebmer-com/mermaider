@@ -1,0 +1,214 @@
+{
+  "version": 1,
+  "review": "reviewed",
+  "diagram": {
+    "id": "signup-flow",
+    "title": "Signup — new-account success path",
+    "family": "process",
+    "syntax": "sequence",
+    "provenance": "curated",
+    "context": "implemented",
+    "nodes": [
+      {
+        "id": "a_signup_caller",
+        "label": "Signup caller (submitSignup)",
+        "evidence": [
+          {
+            "line": 25,
+            "path": "src/signup.ts",
+            "sha256": "a1f06dff055d93d8564fce1fb795fa28cf1cb6c41bacc0d8d239bf0d44be2ecf",
+            "symbol": "submitSignup"
+          }
+        ]
+      },
+      {
+        "id": "b_registration",
+        "label": "Registration (registerAccount)",
+        "evidence": [
+          {
+            "line": 32,
+            "path": "src/signup.ts",
+            "sha256": "eddcf22d5866c4a8885b0e1ad7c10b1e3c48bfc8bf2f3d1390737d2f77118f57",
+            "symbol": "registerAccount"
+          }
+        ]
+      },
+      {
+        "id": "c_accounts",
+        "label": "Account store",
+        "evidence": [
+          {
+            "line": 10,
+            "path": "src/signup.ts",
+            "sha256": "469a7739f9b9f3b7de6820b1dc3cf744abab957a07752d2c99f493e64dc69916",
+            "symbol": "AccountStore"
+          }
+        ]
+      },
+      {
+        "id": "d_welcome",
+        "label": "Welcome queue",
+        "evidence": [
+          {
+            "line": 15,
+            "path": "src/signup.ts",
+            "sha256": "e48fccf3b26a4659474917b717d0238085e26dabfe2f8be35763a8908c304790",
+            "symbol": "WelcomeQueue"
+          }
+        ]
+      }
+    ],
+    "edges": [],
+    "steps": [
+      {
+        "from": "a_signup_caller",
+        "to": "b_registration",
+        "label": "Register submitted email",
+        "kind": "message",
+        "evidence": [
+          {
+            "line": 25,
+            "path": "src/signup.ts",
+            "sha256": "a1f06dff055d93d8564fce1fb795fa28cf1cb6c41bacc0d8d239bf0d44be2ecf",
+            "symbol": "submitSignup"
+          }
+        ]
+      },
+      {
+        "from": "b_registration",
+        "to": "b_registration",
+        "label": "Normalize email and validate format",
+        "kind": "message",
+        "evidence": [
+          {
+            "line": 32,
+            "path": "src/signup.ts",
+            "sha256": "eddcf22d5866c4a8885b0e1ad7c10b1e3c48bfc8bf2f3d1390737d2f77118f57",
+            "symbol": "registerAccount"
+          }
+        ]
+      },
+      {
+        "from": "b_registration",
+        "to": "c_accounts",
+        "label": "Find account by normalized email",
+        "kind": "message",
+        "evidence": [
+          {
+            "line": 32,
+            "path": "src/signup.ts",
+            "sha256": "eddcf22d5866c4a8885b0e1ad7c10b1e3c48bfc8bf2f3d1390737d2f77118f57",
+            "symbol": "registerAccount"
+          }
+        ]
+      },
+      {
+        "from": "c_accounts",
+        "to": "b_registration",
+        "label": "No existing account",
+        "kind": "reply",
+        "evidence": [
+          {
+            "line": 32,
+            "path": "src/signup.ts",
+            "sha256": "eddcf22d5866c4a8885b0e1ad7c10b1e3c48bfc8bf2f3d1390737d2f77118f57",
+            "symbol": "registerAccount"
+          }
+        ]
+      },
+      {
+        "from": "b_registration",
+        "to": "b_registration",
+        "label": "Allocate ID and create pending account",
+        "kind": "message",
+        "evidence": [
+          {
+            "line": 32,
+            "path": "src/signup.ts",
+            "sha256": "eddcf22d5866c4a8885b0e1ad7c10b1e3c48bfc8bf2f3d1390737d2f77118f57",
+            "symbol": "registerAccount"
+          }
+        ]
+      },
+      {
+        "from": "b_registration",
+        "to": "c_accounts",
+        "label": "Insert account",
+        "kind": "message",
+        "evidence": [
+          {
+            "line": 32,
+            "path": "src/signup.ts",
+            "sha256": "eddcf22d5866c4a8885b0e1ad7c10b1e3c48bfc8bf2f3d1390737d2f77118f57",
+            "symbol": "registerAccount"
+          }
+        ]
+      },
+      {
+        "from": "c_accounts",
+        "to": "b_registration",
+        "label": "Insert completes",
+        "kind": "reply",
+        "evidence": [
+          {
+            "line": 32,
+            "path": "src/signup.ts",
+            "sha256": "eddcf22d5866c4a8885b0e1ad7c10b1e3c48bfc8bf2f3d1390737d2f77118f57",
+            "symbol": "registerAccount"
+          }
+        ]
+      },
+      {
+        "from": "b_registration",
+        "to": "d_welcome",
+        "label": "Send account ID and email",
+        "kind": "message",
+        "evidence": [
+          {
+            "line": 32,
+            "path": "src/signup.ts",
+            "sha256": "eddcf22d5866c4a8885b0e1ad7c10b1e3c48bfc8bf2f3d1390737d2f77118f57",
+            "symbol": "registerAccount"
+          }
+        ]
+      },
+      {
+        "from": "d_welcome",
+        "to": "b_registration",
+        "label": "Send completes",
+        "kind": "reply",
+        "evidence": [
+          {
+            "line": 32,
+            "path": "src/signup.ts",
+            "sha256": "eddcf22d5866c4a8885b0e1ad7c10b1e3c48bfc8bf2f3d1390737d2f77118f57",
+            "symbol": "registerAccount"
+          }
+        ]
+      },
+      {
+        "from": "b_registration",
+        "to": "a_signup_caller",
+        "label": "Return pending account",
+        "kind": "reply",
+        "evidence": [
+          {
+            "line": 32,
+            "path": "src/signup.ts",
+            "sha256": "eddcf22d5866c4a8885b0e1ad7c10b1e3c48bfc8bf2f3d1390737d2f77118f57",
+            "symbol": "registerAccount"
+          }
+        ]
+      }
+    ],
+    "diagnostics": [
+      {
+        "code": "SUCCESS_PATH_ONLY",
+        "severity": "warning",
+        "path": "src/signup.ts",
+        "diagramId": "signup-flow",
+        "message": "Shows only valid email, absent account, and successful dependency calls. Validation and duplicate errors, dependency failures, and concurrent signups are outside this sequence. A queue failure follows account insertion; no transaction or retry is implemented."
+      }
+    ]
+  }
+}

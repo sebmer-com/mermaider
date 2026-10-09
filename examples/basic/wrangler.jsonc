@@ -1,0 +1,19 @@
+{
+  // Declared resources for this synthetic fixture, not live deployment details.
+  "name": "mermaider-signup-example",
+  "main": "src/signup.ts",
+  "compatibility_date": "2026-01-01",
+  "d1_databases": [
+    {
+      "binding": "ACCOUNTS",
+      "database_name": "signup-example",
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "queues": {
+    "producers": [
+      { "binding": "WELCOME", "queue": "signup-welcome-example" }
+    ]
+  }
+}

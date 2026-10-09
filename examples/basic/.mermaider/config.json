@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "include": [
+    "src/**",
+    "migrations/**",
+    ".github/workflows/**",
+    "wrangler.jsonc"
+  ],
+  "exclude": [],
+  "outputDir": "docs/mermaider",
+  "audience": "both",
+  "detail": "both",
+  "diagrams": [
+    {
+      "id": "architecture_21d9afdd0ffc",
+      "title": "Signup resources — declared configuration"
+    },
+    {
+      "id": "ci_b803fcb7f17e",
+      "title": "Synthetic CI — declared job order"
+    },
+    {
+      "id": "data:schema:migrations",
+      "title": "Accounts and verification tokens"
+    },
+    {
+      "id": "signup-flow",
+      "model": ".mermaider/models/signup-flow.json"
+    }
+  ],
+  "hooks": {
+    "enabled": true,
+    "trigger": "changes"
+  }
+}

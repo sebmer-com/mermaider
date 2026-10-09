@@ -1,0 +1,59 @@
+{
+  "name": "@sebmer-com/mermaider",
+  "version": "0.1.0",
+  "description": "Source-grounded Mermaid diagrams maintained by coding agents and a deterministic core",
+  "license": "Apache-2.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "bin": {
+    "mermaider": "dist/cli.js"
+  },
+  "exports": {
+    ".": "./dist/engine.js",
+    "./types": "./dist/types.js"
+  },
+  "files": [
+    "dist",
+    "skills",
+    "hooks",
+    "plugin.json",
+    ".claude-plugin",
+    ".codex-plugin",
+    "README.md",
+    "LICENSE",
+    "docs"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "tsx --test tests/*.test.ts",
+    "check": "npm run build && npm test",
+    "prepack": "npm run build",
+    "format:check": "prettier --check ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sebmer-com/mermaider.git"
+  },
+  "dependencies": {
+    "jsdom": "26.1.0",
+    "jsonc-parser": "3.3.1",
+    "mermaid": "11.17.2",
+    "minimatch": "10.2.6",
+    "pgsql-ast-parser": "12.0.1",
+    "smol-toml": "1.9.1",
+    "typescript": "5.9.3",
+    "yaml": "2.9.1",
+    "zod": "4.1.12"
+  },
+  "devDependencies": {
+    "@types/jsdom": "21.1.7",
+    "@types/node": "22.18.10",
+    "prettier": "3.6.2",
+    "tsx": "4.20.6"
+  },
+  "overrides": {
+    "katex": "0.19.0"
+  }
+}

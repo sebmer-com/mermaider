@@ -1,0 +1,7 @@
+node_modules/
+dist/
+*.tgz
+.local/
+.mermaider/cache/
+.DS_Store
+coverage/

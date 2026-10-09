@@ -1,0 +1,18 @@
+name: Synthetic signup checks
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Fixture validation job; no application tests are run."
+  package:
+    runs-on: ubuntu-latest
+    needs: validate
+    steps:
+      - run: echo "Fixture packaging job; no artifact is built or published."
