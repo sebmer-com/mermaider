@@ -1,8 +1,12 @@
-# Mermaider
+# Mermaider: architecture diagrams from code
 
-**Keep repository diagrams connected to the code that explains them.**
+**Keep architecture documentation in step with AI-assisted engineering.**
 
-Mermaider combines a coding-agent skill, a TypeScript CLI, and native agent hooks. The agent discovers useful topics with you, reviews the meaning of a process, and maintains evidence-backed models. The executable core extracts declared facts, validates the models, and generates a browsable **HTML diagram collection** plus Mermaid and Markdown sources.
+AI coding agents can change a repository faster than you can keep its architecture in your head. A service gains a queue, a deployment pipeline gains another stage, or a signup flow crosses a new boundary. Ask an LLM to explain the system again, and you may get a different account of the same code.
+
+Mermaider turns repository sources and reviewed process models into **Mermaid architecture diagrams, workflow diagrams, and browsable HTML documentation**. It combines an agent skill, a TypeScript CLI, and native hooks for Codex and Claude Code. Choose the views that matter, keep their evidence alongside the code, and let the active agent maintain them as the repository changes.
+
+[Create your first diagrams](#generate-architecture-diagrams-from-a-local-checkout) · [Install agent hooks](docs/installation.md) · [Try the synthetic example](examples/README.md)
 
 ```mermaid
 flowchart LR
@@ -15,9 +19,18 @@ flowchart LR
     Hooks[Native agent hooks] --> Review
 ```
 
-The same sources, models, configuration, and tool version produce the same files. **LLM interpretation is not deterministic.** Fresh output and a reviewed business process are different assertions.
+**The same sources, reviewed models, configuration, and tool version produce the same files.** An LLM's interpretation of a business process still requires review. Mermaider records that interpretation with source evidence and keeps semantic review separate from documentation freshness.
 
-## What it can diagram
+## Architecture documentation you can inspect and maintain
+
+- **See how the system fits together.** Keep selected architecture, dependency, database, deployment, and process diagrams in one HTML collection.
+- **Review the evidence.** Follow source references and coverage notes, and inspect Mermaid and Markdown text in a pull request or with a coding agent.
+- **Catch documentation drift.** Check whether selected inputs, evidence, or generated files have changed. Native hooks can ask the current agent to review stale diagrams during an active session.
+- **Keep a useful scope.** Start with a few relevant views. Mermaider saves your choices and suggests newly discovered topics instead of silently expanding the documentation.
+
+The HTML viewer works offline and shows one diagram at a time. Short navigation labels, pan, and **Fit**, **−**, **+**, and **100%** controls make dense views easier to read. Mermaid renders the visual as SVG inside HTML; `.mmd`, `.md`, and structured JSON models keep the underlying information available as text for humans and agents.
+
+## Mermaid diagram types and supported sources
 
 | Topic                   | Extracted foundation                           | Agent contribution                                         |
 | ----------------------- | ---------------------------------------------- | ---------------------------------------------------------- |
@@ -28,9 +41,9 @@ The same sources, models, configuration, and tool version produce the same files
 | States                  | Source evidence                                | Verified transitions, guards, and failures                 |
 | Processes and sequences | Source evidence                                | Signup, provisioning, deployment, and other selected flows |
 
-Dynamic or unsupported constructs produce diagnostics rather than invented behavior. Source declarations describe implemented intent; planned designs and observed runtime behavior use separately labeled models.
+The core reads Wrangler configuration, package and Cargo manifests, TypeScript imports, GitHub Actions workflows, and supported declarative SQL/migrations. Dynamic or unsupported constructs produce diagnostics rather than invented behavior. Source declarations describe implemented intent; planned designs and observed runtime behavior use separately labeled models. A list of status values alone does not establish valid state transitions.
 
-## Start from a local checkout
+## Generate architecture diagrams from a local checkout
 
 Requires Node.js 22.13 or later and Git. Version 0.1 uses a built checkout; these instructions do not depend on an npm registry release.
 
@@ -42,11 +55,11 @@ npm run build
 node dist/cli.js discover --repo /absolute/path/to/your-repository
 ```
 
-Install the skill and native hooks with the [installation guide](docs/installation.md), then ask:
+Follow the [installation guide](docs/installation.md) to load the built skill and native hooks into your agent, then ask:
 
 > Use Mermaider to inspect this repository and show me the architecture, pipeline, data, and process diagrams that would be useful. Help me choose which to maintain.
 
-The skill asks about scope, audience, detail, and location after inspecting the repository. It saves those choices and uses them on later updates. New topics remain suggestions until selected.
+The skill inspects the repository before asking about scope, audience, detail, and location. It saves those choices for later updates. For a deployment diagram, for example, it can extract declared CI job dependencies and help you review the release steps that span application code and external systems.
 
 For a direct CLI workflow, inspect discovery first and choose the families you want:
 
@@ -60,7 +73,7 @@ node /absolute/path/to/mermaider/dist/cli.js check --repo /absolute/path/to/your
 
 Open the generated `index.html` from the selected output directory. It contains all selected diagrams and works offline. The default placement follows repository/framework conventions: existing `docs/architecture/mermaider`, otherwise `docs/superpowers/mermaider` for Superpowers, otherwise `docs/mermaider`. Explicit user/configuration paths take precedence. See [framework-aware placement](docs/frameworks.md) and the [runnable synthetic example](examples/README.md).
 
-The gallery shows one diagram at a time, with short navigation labels and a large reading area. Pan the diagram or use **Fit**, **−**, **+**, and **100%** to inspect it. Source references and coverage notes expand when needed. The monochrome layout follows the [Seb Builds brand](https://sebmer.com/brand/), with embedded Latin Modern headings, Arial controls, and no network dependency. Set a selection's optional `navLabel` when its full title is too long for navigation.
+The monochrome gallery follows the [Seb Builds brand](https://sebmer.com/brand/), with embedded Latin Modern headings, Arial controls, and no network dependency. Set a selection's optional `navLabel` when its full title is too long for navigation.
 
 ## Commands and files
 
@@ -77,7 +90,7 @@ Repository commands accept `--repo <directory>`; hooks obtain the repository fro
 
 Version `.mermaider/config.json`, semantic models, generated HTML/diagram sources, and the generated manifest together. Local hook state and locks are disposable coordination data. Explicitly mapped Markdown blocks can update existing chapters while preserving surrounding prose; the HTML collection is generated in addition. See [configuration](docs/configuration.md).
 
-## Automatic maintenance
+## Keep diagrams current with Codex and Claude Code hooks
 
 Codex and Claude Code integrations check repository state at session start, after tools, and before completion. When selected documentation is stale, the hook asks the **current agent** to run the skill. It neither launches a second agent nor makes a commit. A completion hook requests at most one additional maintenance pass per user turn, including when the input fingerprint changes during that pass; failures remain visible without repeated forced continuation.
 
@@ -85,9 +98,33 @@ Hook operation requires a running, supported local client and trusted hooks. A c
 
 Codex/Claude adapter behavior is covered by executable contract tests. A Claude Code 2.1.281 smoke test also verified that SessionStart context invoked the packaged skill, updated stale diagram/HTML output, and completed `check` with normal permissions. Real client installation remains a separate [smoke check](docs/installation.md#verify-a-native-installation); one tested client version does not certify every version. Cursor and Gemini definitions are experimental adapter preparation.
 
-## Superpowers, Oh My Codex, and other workflows
+## Use Mermaider with Superpowers and Oh My Codex
 
-Mermaider works independently. With [Superpowers](https://github.com/obra/superpowers), use discovery/planning to agree on diagrams and verification to check them. With [Oh My Codex](https://github.com/Yeachan-Heo/oh-my-codex), use the active task workflow and its repository guidance. The skill saves HTML under the repository's appropriate docs folder, without changing either framework's plans or runtime state. Neither framework is a dependency or fork target.
+Mermaider works independently and complements agent workflows such as [Superpowers](https://github.com/obra/superpowers) and [Oh My Codex](https://github.com/Yeachan-Heo/oh-my-codex). Planning and implementation workflows benefit from maintained views of the current system: service boundaries, database relationships, deployment stages, and user flows.
+
+With Superpowers, use discovery/planning to agree on diagrams and verification to check them. With Oh My Codex, use the active task workflow and its repository guidance. The skill saves HTML under the repository's appropriate docs folder, without changing either framework's plans or runtime state. Neither framework is a dependency or fork target.
+
+## Frequently asked questions
+
+### Is architecture generation fully deterministic?
+
+Extraction and rendering are deterministic for the same inputs and tool version. Process meaning, business rules, and boundaries may need an agent's interpretation and human review. Mermaider stores those decisions in versioned models with evidence; it does not claim that every architectural fact can be inferred automatically from code.
+
+### Can an LLM read the diagrams?
+
+Yes. Mermaid source (`.mmd`) and Markdown (`.md`) accompany the HTML viewer, and semantic models and JSON discovery output expose structured information. The viewer embeds SVG for visual rendering. There is no dedicated XML export.
+
+### Will a new commit update the diagrams automatically?
+
+Trusted hooks can request maintenance from a running supported agent. The configuration supports change-based or commit-based triggers. A commit made with the agent closed is detected at the next eligible session or event; no background agent is started.
+
+### Can I keep existing architecture documentation?
+
+Yes. Explicitly mapped Markdown blocks let Mermaider maintain selected sections while preserving surrounding prose. It also generates the HTML collection. Choose the scope and output location with the skill, and see the [configuration guide](docs/configuration.md) for ownership and evidence rules.
+
+### Which coding agents are supported?
+
+Codex and Claude Code have native adapters with executable contract tests; a live Claude Code smoke test is documented above. Cursor and Gemini integrations are experimental. See the [installation guide](docs/installation.md) for setup, trust controls, and client verification.
 
 ## Development
 
@@ -99,5 +136,7 @@ npm run check
 Tests use synthetic repositories. The suite covers extraction, model validation, reproducibility, source changes, managed output, and hook coordination. CI builds and tests the package; it does not publish or deploy anything.
 
 The v1 limitations and extension boundaries are described in [design notes](docs/design.md). Contributions should preserve explicit source evidence and report unsupported cases instead of guessing.
+
+Create a code-based view of your repository with the [installation guide](docs/installation.md), or explore the [synthetic example](examples/README.md) before connecting your agent.
 
 Licensed under [Apache-2.0](LICENSE).
