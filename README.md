@@ -6,6 +6,8 @@ AI coding agents can change a repository faster than you can keep its architectu
 
 Mermaider turns repository sources and reviewed process models into **Mermaid architecture diagrams, workflow diagrams, and browsable HTML documentation**. It combines an agent skill, a TypeScript CLI, and native hooks for Codex and Claude Code. Choose the views that matter, keep their evidence alongside the code, and let the active agent maintain them as the repository changes.
 
+Read the project story: [Mermaider: Code-Based Architecture Diagrams for AI Engineering](https://sebmer.com/projects/mermaider/).
+
 [Create your first diagrams](#generate-architecture-diagrams-from-a-local-checkout) · [Install agent hooks](docs/installation.md) · [Try the synthetic example](examples/README.md)
 
 ```mermaid
