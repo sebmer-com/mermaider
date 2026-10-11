@@ -1,6 +1,6 @@
 {
   "name": "@sebmer-com/mermaider",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Source-grounded Mermaid diagrams maintained by coding agents and a deterministic core",
   "license": "Apache-2.0",
   "type": "module",
@@ -23,7 +23,9 @@
     ".codex-plugin",
     "README.md",
     "LICENSE",
-    "docs"
+    "docs",
+    "assets",
+    "THIRD_PARTY.md"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json",

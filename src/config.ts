@@ -29,6 +29,7 @@ export const configSchema = z
         .object({
           id: z.string().min(1),
           title: z.string().optional(),
+          navLabel: z.string().min(1).max(64).optional(),
           model: path.optional(),
           audience: z.enum(["overview", "technical", "both"]).optional(),
           detail: z.enum(["overview", "detailed", "both"]).optional(),

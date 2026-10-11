@@ -35,7 +35,7 @@ import type {
   SourceFile,
 } from "./types.js";
 
-export const VERSION = "0.1.0";
+export const VERSION = "0.1.1";
 const CONFIG = ".mermaider/config.json",
   MANIFEST = ".mermaider/manifest.json";
 const extractors = [infrastructureExtractor, codeExtractor, databaseExtractor];
@@ -208,7 +208,14 @@ async function toolDigest(): Promise<string> {
     }
   }
   const skillRoot = path.resolve(dir, "../skills/mermaider");
-  for (const f of ["package.json", "package-lock.json"]) {
+  for (const f of [
+    "package.json",
+    "package-lock.json",
+    "assets/brand.json",
+    "assets/fonts/LM-regular.woff2",
+    "assets/fonts/LM-italic.woff2",
+    "assets/fonts/FONT-LICENSE.txt",
+  ]) {
     try {
       result.push([f, sha256(await fs.readFile(path.resolve(dir, "..", f)))]);
     } catch (e) {
@@ -458,7 +465,12 @@ async function prepare(
         continue;
       const mermaid = renderMermaid(diagram);
       await validateMermaid(mermaid);
-      htmlViews.push({ diagram, mermaid, projected: Boolean(selection.focus) });
+      htmlViews.push({
+        diagram,
+        mermaid,
+        projected: Boolean(selection.focus),
+        navLabel: selection.navLabel,
+      });
       const name = selection.id.replace(/[^a-zA-Z0-9_-]/g, "_");
       const md = selection.output?.markdown || `${config.outputDir}/${name}.md`;
       if (!md.endsWith(".md"))

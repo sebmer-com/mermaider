@@ -60,6 +60,8 @@ node /absolute/path/to/mermaider/dist/cli.js check --repo /absolute/path/to/your
 
 Open the generated `index.html` from the selected output directory. It contains all selected diagrams and works offline. The default placement follows repository/framework conventions: existing `docs/architecture/mermaider`, otherwise `docs/superpowers/mermaider` for Superpowers, otherwise `docs/mermaider`. Explicit user/configuration paths take precedence. See [framework-aware placement](docs/frameworks.md) and the [runnable synthetic example](examples/README.md).
 
+The gallery shows one diagram at a time, with short navigation labels and a large reading area. Pan the diagram or use **Fit**, **−**, **+**, and **100%** to inspect it. Source references and coverage notes expand when needed. The monochrome layout follows the [Seb Builds brand](https://sebmer.com/brand/), with embedded Latin Modern headings, Arial controls, and no network dependency. Set a selection's optional `navLabel` when its full title is too long for navigation.
+
 ## Commands and files
 
 | Command                                         | Purpose                                                                       |

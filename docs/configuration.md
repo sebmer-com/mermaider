@@ -34,12 +34,13 @@ This example assumes the repository has TypeScript imports and a separately auth
 
 ## Selecting a readable subset
 
-A selection may include `title`, `focus`, and `attributes`:
+A selection may include `title`, `navLabel`, `focus`, and `attributes`:
 
 ```json
 {
   "id": "your-discovered-schema-id",
   "title": "Accounts and projects",
+  "navLabel": "Accounts",
   "focus": ["accounts", "projects", "memberships"],
   "attributes": "keys"
 }
@@ -47,11 +48,15 @@ A selection may include `title`, `focus`, and `attributes`:
 
 Use actual exact node labels or IDs returned by discovery for `focus`. The generated view includes the selected nodes and relationships between them, and identifies itself as a projection. `attributes` accepts `all`, `keys`, or `none`; it controls displayed ER attributes. It does not remove facts from source extraction or redefine the database schema. Prefer several coherent topics to a diagram containing hundreds of tables.
 
+`navLabel` is an optional short label for the HTML navigation. Use a few familiar, distinctive words such as `Architecture`, `Deploy`, or `Accounts`; when omitted, the viewer derives a compact label from the title. The full `title` remains the diagram heading. A navigation label changes presentation only: it does not rename the diagram ID, modify evidence, or change generated Mermaid relationships.
+
 Diagram IDs must be unique within the configuration. A selection may instead point to an agent-authored model with `model`. See [semantic models](../skills/mermaider/references/models.md) for evidence and review requirements.
 
 ## HTML collection, source files, and managed blocks
 
 Every successful update generates a self-contained HTML viewer for **all selected diagrams**, with the bundled Mermaid runtime for offline viewing. By default it is `<outputDir>/index.html`. An optional top-level `html` property can select another repository-relative `.html` path in the chosen docs folder; HTML generation cannot be disabled. Open this file for visual review and use it as the primary handoff to readers.
+
+The viewer displays one active diagram in a dedicated viewport. Navigation switches that view, with a compact selector on phones. **Fit**, **−**, **+**, and **100%** adjust its SVG scale; drag or use arrow keys to pan, and Ctrl-wheel to zoom. The full title stays visible while **Notes & scope** and **Sources & Mermaid** are collapsed until opened. These controls affect only the browser view, not the saved graph or its freshness state.
 
 In addition to HTML, without an `output` mapping each selection receives `.md` and `.mmd` files under `outputDir`. An explicit mapping can put both source files elsewhere:
 

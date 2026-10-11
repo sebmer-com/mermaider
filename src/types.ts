@@ -78,6 +78,7 @@ export interface Extractor {
 export interface Selection {
   id: string;
   title?: string;
+  navLabel?: string;
   model?: string;
   audience?: "overview" | "technical" | "both";
   detail?: "overview" | "detailed" | "both";

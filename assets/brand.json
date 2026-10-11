@@ -1,0 +1,36 @@
+{
+  "name": "Seb Builds",
+  "source": "https://sebmer.com/brand/",
+  "tokensSource": "https://sebmer.com/brand/brand.json",
+  "typography": {
+    "editorial": "Latin Modern",
+    "fallback": "Georgia",
+    "utility": "Arial",
+    "titleWeight": 400
+  },
+  "light": {
+    "paper": "#FFFFFF",
+    "surface": "#F3F3F3",
+    "ink": "#111111",
+    "soft": "#3F3F3F",
+    "muted": "#686868",
+    "rule": "#171717",
+    "hairline": "#C8C8C8",
+    "focus": "#000000"
+  },
+  "dark": {
+    "paper": "#111111",
+    "surface": "#1A1A1A",
+    "ink": "#F2F2F2",
+    "soft": "#CCCCCC",
+    "muted": "#9C9C9C",
+    "rule": "#F2F2F2",
+    "hairline": "#414141",
+    "focus": "#FFFFFF"
+  },
+  "usage": [
+    "Use large regular serif titles and italic claims.",
+    "Use thin rules and uppercase utility labels.",
+    "Keep the wordmark proportions."
+  ]
+}

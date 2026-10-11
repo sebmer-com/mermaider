@@ -1,8 +1,11 @@
 {
   "name": "mermaider",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Maintain source-grounded architecture and process diagrams with a coding-agent skill and a deterministic Mermaid core.",
-  "author": { "name": "sebmer-com", "url": "https://github.com/sebmer-com" },
+  "author": {
+    "name": "sebmer-com",
+    "url": "https://github.com/sebmer-com"
+  },
   "repository": "https://github.com/sebmer-com/mermaider",
   "license": "Apache-2.0",
   "skills": "./skills/",

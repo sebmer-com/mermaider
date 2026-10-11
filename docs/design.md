@@ -8,6 +8,16 @@ Mermaider has three layers:
 
 The CLI can run without an LLM. Updating a semantic model requires an agent or human to interpret the implementation. There is no hidden API call, background agent, auto-commit, auto-push, or deployment step.
 
+## HTML reading experience
+
+The gallery keeps one diagram active in a large viewport. Short navigation labels lead to the full title and diagram; evidence and coverage notes remain available under **Sources & Mermaid** and **Notes & scope**. Fit, zoom, and pan operate on the SVG so a large graph remains inspectable. The phone layout uses a compact diagram selector, retaining the same diagram controls and keyboard navigation as desktop.
+
+The visual system follows [Seb Builds](https://sebmer.com/brand/): white paper, `#111111` ink, `#F2F2F2` text on ink, Latin Modern serif headings, Arial functional labels, thin rules, and generous spacing. Latin Modern and the Mermaid runtime are embedded in the HTML for offline use. Branding and navigation belong to the presentation layer and do not alter the source model.
+
+Mermaid remains the graph renderer. Each graph receives a unique render ID and rendering is sequential, preventing shared SVG definitions from colliding across diagrams. An SVG viewport supplies actual scale and pan controls; resizing its surrounding card alone would not improve an overlapping graph. Layout corrections must preserve nodes, relationships, sequence order, and evidence. A renderer-only change should leave the Mermaid source intact.
+
+Visual verification checks the generated HTML in a browser at desktop and phone sizes, including a dense graph, diagram switching, and Fit/zoom behavior. Inspect text, nodes, and edges for overlap and clipping; syntax validation alone cannot establish that they are legible. For presentation-only work, compare model and Mermaid sources before and after so a layout repair cannot silently change the diagram's meaning.
+
 ## Supported extraction
 
 | Source                          | V1 output and limits                                                                                                                                                                                                                             |

@@ -12,6 +12,22 @@ const sequenceLabel = (s: string) =>
   s
     .replace(/[\r\n]+/g, " ")
     .replace(/[&<>"#;:{}\[\]`\\]/g, (c) => `#${c.charCodeAt(0)};`);
+/** Wrap only display text; explicit source line breaks and literal identifiers stay visible. */
+function flowLabel(value: string): string {
+  const lines: string[] = [];
+  for (const paragraph of value.replace(/\r/g, "").split("\n")) {
+    let line = "";
+    for (const word of paragraph.split(/\s+/).filter(Boolean)) {
+      if (line && line.length + word.length + 1 > 36) {
+        lines.push(line);
+        line = "";
+      }
+      line += (line ? " " : "") + word;
+    }
+    lines.push(line);
+  }
+  return lines.map((line) => label(line)).join("<br/>");
+}
 const identifier = (s: string) =>
   s.replace(/[^a-zA-Z0-9_]/g, "_").replace(/^[0-9]/, "_$&") || "field";
 const order = <T extends { id: string }>(xs: T[]) =>
@@ -60,10 +76,10 @@ export function renderMermaid(diagram: Diagram): string {
     out.push(
       `flowchart ${diagram.direction || (diagram.family === "process" ? "TD" : "LR")}`,
     );
-    for (const n of nodes) out.push(`    ${id(n.id)}["${label(n.label)}"]`);
+    for (const n of nodes) out.push(`    ${id(n.id)}["${flowLabel(n.label)}"]`);
     for (const e of edges)
       out.push(
-        `    ${id(e.from)} -->${e.label ? `|"${label(e.label)}"|` : ""} ${id(e.to)}`,
+        `    ${id(e.from)} -->${e.label && !["declares", "needs"].includes(e.label) ? `|"${flowLabel(e.label)}"|` : ""} ${id(e.to)}`,
       );
   }
   return out.join("\n") + "\n";
